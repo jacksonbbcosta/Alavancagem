@@ -118,6 +118,12 @@
             color: white;
             font-weight: bold;
         }
+
+        .lucro-perc {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -150,7 +156,7 @@
         <table id="tabelaAlavancagem">
             <thead>
                 <tr>
-                    <th>Entrada N°</th>
+                    <th>#</th>
                     <th>Odd</th>
                     <th>Resultado</th>
                 </tr>
@@ -171,7 +177,7 @@
         <table id="tabelaAllIn4x">
             <thead>
                 <tr>
-                    <th>Entrada N°</th>
+                    <th>#</th>
                     <th>Odd</th>
                     <th>Resultado</th>
                 </tr>
@@ -230,6 +236,7 @@
 
         // Cálculo do lucro líquido
         const lucroLiquido = valorAtual - valorInicial;
+        const porcentagemLucro = ((lucroLiquido / valorInicial) * 100).toFixed(2);
 
         const linhaLucro = tabela.insertRow();
         const celulaContagem = linhaLucro.insertCell(0);
@@ -238,13 +245,13 @@
 
         celulaContagem.textContent = 'Total';
         celulaOdd.textContent = '';
-        celulaLucro.textContent = `Lucro Líquido: R$ ${lucroLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        celulaLucro.textContent = `Lucro Líquido: R$ ${lucroLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${porcentagemLucro}%)`;
         celulaLucro.classList.add('lucro');
     }
 
     function calcularAllIn4x() {
         const valorInicial = parseFloat(document.getElementById('valorInicial4x').value);
-        const odd = 1.50;
+        const odd = 1.40;
         const tabela = document.getElementById('tabelaAllIn4x').getElementsByTagName('tbody')[0];
 
         tabela.innerHTML = '';  // Limpa a tabela antes de calcular
@@ -264,20 +271,4 @@
             celulaResultado.textContent = `R$ ${valorAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         }
 
-        // Cálculo do lucro líquido
-        const lucroLiquido = valorAtual - valorInicial;
-
-        const linhaLucro = tabela.insertRow();
-        const celulaContagem = linhaLucro.insertCell(0);
-        const celulaOdd = linhaLucro.insertCell(1);
-        const celulaLucro = linhaLucro.insertCell(2);
-
-        celulaContagem.textContent = 'Total';
-        celulaOdd.textContent = '';
-        celulaLucro.textContent = `Lucro Líquido: R$ ${lucroLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        celulaLucro.classList.add('lucro');
-    }
-</script>
-
-</body>
-</html>
+        // Cálculo do lucro
