@@ -152,7 +152,7 @@
 
             celulaContagem.textContent = i;
             celulaOdd.textContent = `${odd.toFixed(2)}x`;
-            celulaResultado.textContent = `R$ ${valorAtual.toFixed(2)}`;
+            celulaResultado.textContent = `R$ ${valorAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         }
     }
 </script>
