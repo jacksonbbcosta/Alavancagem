@@ -190,10 +190,8 @@
 <script>
     function showContent(id) {
         // Oculta todos os conteúdos
-        const contents = document.getElementsByClassName('content');
-        for (let i = 0; i < contents.length; i++) {
-            contents[i].classList.remove('active');
-        }
+        const contents = document.querySelectorAll('.content');
+        contents.forEach(content => content.classList.remove('active'));
         
         // Mostra o conteúdo correspondente ao botão clicado
         document.getElementById(id).classList.add('active');
@@ -267,4 +265,19 @@
         }
 
         // Cálculo do lucro líquido
-        const lucro
+        const lucroLiquido = valorAtual - valorInicial;
+
+        const linhaLucro = tabela.insertRow();
+        const celulaContagem = linhaLucro.insertCell(0);
+        const celulaOdd = linhaLucro.insertCell(1);
+        const celulaLucro = linhaLucro.insertCell(2);
+
+        celulaContagem.textContent = 'Total';
+        celulaOdd.textContent = '';
+        celulaLucro.textContent = `Lucro Líquido: R$ ${lucroLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        celulaLucro.classList.add('lucro');
+    }
+</script>
+
+</body>
+</html>
