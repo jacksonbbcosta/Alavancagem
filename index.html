@@ -112,6 +112,12 @@
             box-sizing: border-box;
             margin-bottom: 10px;
         }
+
+        .lucro {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -121,7 +127,7 @@
     
     <div class="menu">
         <button onclick="showContent('allIn')">Projeto All-In</button>
-        <button onclick="showContent('projeto2')">Projeto 2</button>
+        <button onclick="showContent('projeto2')">Projeto All-In 4x</button>
         <button onclick="showContent('projeto3')">Projeto 3</button>
     </div>
 
@@ -156,7 +162,24 @@
     </div>
 
     <div id="projeto2" class="content">
-        <p>Conteúdo do Projeto 2</p>
+        <div class="input-section">
+            <label for="valorInicial4x">Valor Inicial (R$):</label>
+            <input type="number" id="valorInicial4x" value="25.00" step="0.01" placeholder="Insira o valor inicial">
+            <button onclick="calcularAllIn4x()">Calcular</button>
+        </div>
+
+        <table id="tabelaAllIn4x">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Odd</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas da tabela serão adicionadas aqui pelo JavaScript -->
+            </tbody>
+        </table>
     </div>
 
     <div id="projeto3" class="content">
@@ -207,22 +230,41 @@
             celulaResultado.textContent = `R$ ${valorAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         }
 
-        // Calcula e exibe o lucro total
-        const lucroTotal = valorAtual - valorInicial;
-        const novaLinhaLucro = tabela.insertRow();
-        const celulaLucroLabel = novaLinhaLucro.insertCell(0);
-        const celulaLucroVazia = novaLinhaLucro.insertCell(1);
-        const celulaLucroValor = novaLinhaLucro.insertCell(2);
+        // Cálculo do lucro líquido
+        const lucroLiquido = valorAtual - valorInicial;
 
-        celulaLucroLabel.textContent = 'Lucro Total';
-        celulaLucroLabel.colSpan = 2;
-        celulaLucroValor.textContent = `R$ ${lucroTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        celulaLucroValor.style.fontWeight = 'bold';
+        const linhaLucro = tabela.insertRow();
+        const celulaContagem = linhaLucro.insertCell(0);
+        const celulaOdd = linhaLucro.insertCell(1);
+        const celulaLucro = linhaLucro.insertCell(2);
+
+        celulaContagem.textContent = 'Total';
+        celulaOdd.textContent = '';
+        celulaLucro.textContent = `Lucro Líquido: R$ ${lucroLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        celulaLucro.classList.add('lucro');
     }
 
-    // Exibe o conteúdo do Projeto All-In por padrão
-    showContent('allIn');
-</script>
+    function calcularAllIn4x() {
+        const valorInicial = parseFloat(document.getElementById('valorInicial4x').value);
+        const odd = 1.40;
+        const tabela = document.getElementById('tabelaAllIn4x').getElementsByTagName('tbody')[0];
 
-</body>
-</html>
+        tabela.innerHTML = '';  // Limpa a tabela antes de calcular
+
+        let valorAtual = valorInicial;
+
+        for (let i = 1; i <= 4; i++) {
+            valorAtual = valorAtual * odd;
+
+            const novaLinha = tabela.insertRow();
+            const celulaContagem = novaLinha.insertCell(0);
+            const celulaOdd = novaLinha.insertCell(1);
+            const celulaResultado = novaLinha.insertCell(2);
+
+            celulaContagem.textContent = i;
+            celulaOdd.textContent = `${odd.toFixed(2)}x`;
+            celulaResultado.textContent = `R$ ${valorAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        // Cálculo do lucro líquido
+        const lucro
