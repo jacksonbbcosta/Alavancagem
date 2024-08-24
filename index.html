@@ -82,6 +82,7 @@
     <table id="tabelaAlavancagem">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Odd</th>
                 <th>Resultado</th>
             </tr>
@@ -106,9 +107,11 @@
             valorAtual = valorAtual * odd;
 
             const novaLinha = tabela.insertRow();
-            const celulaOdd = novaLinha.insertCell(0);
-            const celulaResultado = novaLinha.insertCell(1);
+            const celulaContagem = novaLinha.insertCell(0);
+            const celulaOdd = novaLinha.insertCell(1);
+            const celulaResultado = novaLinha.insertCell(2);
 
+            celulaContagem.textContent = i;
             celulaOdd.textContent = `${odd.toFixed(2)}x`;
             celulaResultado.textContent = `R$ ${valorAtual.toFixed(2)}`;
         }
