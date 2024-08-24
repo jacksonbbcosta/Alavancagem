@@ -271,4 +271,24 @@
             celulaResultado.textContent = `R$ ${valorAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         }
 
-        // Cálculo do lucro
+        // Cálculo do lucro líquido
+        const lucroLiquido = valorAtual - valorInicial;
+        const porcentagemLucro = ((lucroLiquido / valorInicial) * 100).toFixed(2);
+
+        const linhaLucro = tabela.insertRow();
+        const celulaContagem = linhaLucro.insertCell(0);
+        const celulaOdd = linhaLucro.insertCell(1);
+        const celulaLucro = linhaLucro.insertCell(2);
+
+        celulaContagem.textContent = 'Total';
+        celulaOdd.textContent = '';
+        celulaLucro.textContent = `Lucro Líquido: R$ ${lucroLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${porcentagemLucro}%)`;
+        celulaLucro.classList.add('lucro');
+    }
+
+    // Exibe o conteúdo do Projeto All-In por padrão
+    showContent('allIn');
+</script>
+
+</body>
+</html>
